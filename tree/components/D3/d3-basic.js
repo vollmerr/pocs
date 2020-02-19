@@ -1,8 +1,6 @@
 import React, { createRef } from 'react';
 import * as d3 from 'd3';
 
-import Card from './Card';
-
 const data = [2, 4, 2, 6, 8];
 const canvasHeight = 400;
 const canvasWidth = 600;
@@ -38,7 +36,6 @@ class D3Basic extends React.Component {
         return (
             <>
                 <div>in d3 basic...</div>
-                <Card/>
                 <div ref={this.chartRef} />
             </>
         );

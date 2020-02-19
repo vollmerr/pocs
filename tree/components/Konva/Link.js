@@ -3,8 +3,8 @@ import { Arrow } from 'react-konva';
 
 export const getLinkPoints = ({ from, to }) => {
     const unit = 30;
-    const cardWidth = unit * 10;
-    const cardHeight = unit * 15;
+    const cardWidth = unit * 8;
+    const cardHeight = unit * 12;
     const arrowOffset = unit / 2;
 
     let fromX = from.x + (cardWidth / 2);

@@ -4,7 +4,8 @@ import Link from 'next/link'
 const links = [
   { href: '/', label: 'Home' },
   { href: '/basic', label: 'Basic' },
-  { href: '/tree-canvas', label: 'Tree Canvas' },
+  { href: '/tree-canvas', label: 'D3 Tree Canvas' },
+  { href: '/d3-svg', label: 'D3 Svg' },
   { href: '/fabric', label: 'fabric' },
   { href: '/konva', label: 'konva' },
 ].map(link => ({

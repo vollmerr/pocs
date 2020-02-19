@@ -75,9 +75,19 @@ const multi = {
       x: 600,
       y: 1380,
       parent: 'id-2',
+      children: ['id-8'],
+    },
+    'id-8': {
+      id: 'id-8',
+      title: 'Test Right',
+      description: 'In est ante in nibh',
+      imageSrc: '/placeholder.png',
+      x: 960,
+      y: 1380,
+      parent: 'id-7',
     },
   },
-  allIds: ['id-0', 'id-1', 'id-2', 'id-3', 'id-4', 'id-5', 'id-6', 'id-7'],
+  allIds: ['id-0', 'id-1', 'id-2', 'id-3', 'id-4', 'id-5', 'id-6', 'id-7', 'id-8'],
   scale: 1,
 }
 
