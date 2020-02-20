@@ -4,7 +4,7 @@ export const getLinkPoints = ({ from, to }) => {
     const unit = 30;
     const cardWidth = unit * 8;
     const cardHeight = unit * 12;
-    const arrowOffset = unit / 2;
+    const arrowOffset = 15;
 
     let x1 = from.x + (cardWidth / 2);
     let y1 = from.y + (cardHeight / 2);
@@ -17,21 +17,21 @@ export const getLinkPoints = ({ from, to }) => {
     const isBelow = from.y > to.y + cardHeight;
     
     if (isLeft) {
-        x2 = to.x - arrowOffset;
+        x2 = to.x;
     }
 
     if (isRight) {
-        x2 = to.x + cardWidth + arrowOffset;
+        x2 = to.x + cardWidth;
     }
 
     if (isAbove) {
         y1 = from.y + cardHeight - arrowOffset;
-        y2 = to.y - (arrowOffset / 2);
+        y2 = to.y;
     }
 
     if (isBelow) {
         y1 = from.y + arrowOffset;
-        y2 = to.y + cardHeight + (arrowOffset / 2);
+        y2 = to.y + cardHeight;
     }
 
     return { x1, y1, x2, y2 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import * as d3 from 'd3';
 
 import data from './data';
 import Defs from './Defs';
@@ -32,6 +31,18 @@ class D3TreeSvg extends React.Component {
                 [card.id]: { ...card, x, y },
             },
         });
+    }
+
+    updateScale = (delta) => {
+        const { scale } = this.state;
+
+        if (scale + delta > 0.1) {
+            this.setState({ scale: scale + delta });
+        }
+    }
+
+    resetScale = () => {
+        this.setState({ scale: data.scale || 1 });
     }
 
     updateViewport = () => {
@@ -67,27 +78,25 @@ class D3TreeSvg extends React.Component {
     };
 
     render() {
-        const { width, height, allIds } = this.state;
+        const { width, height, allIds, scale } = this.state;
         
         return (
-            <svg height={height} width={width} viewBox={'0 0 3000 3000'}>
-                <Defs />
-                {allIds.map(this.renderLinks)}
-                {allIds.map(this.renderCard)}
-            </svg>
+            <>
+                <div style={{ color: 'white', display: 'flex', width: '200px', justifyContent: 'space-between' }}>
+                    <div>zoom</div>
+                    <button onClick={() => this.updateScale(-100)}>+</button>
+                    <button onClick={() => this.updateScale(100)}>-</button>
+                    <button onClick={this.resetScale}>reset</button>
+                </div>
+{/* transform={`scale(${scale})`} */}
+                <svg height={height} width={width} viewBox={`0 0 ${scale} ${scale}`}>
+                    <Defs />
+                    {allIds.map(this.renderLinks)}
+                    {allIds.map(this.renderCard)}
+                </svg>
+            </>
         );
     }
 }
 
 export default D3TreeSvg;
-
-
-/*
-
-1. transform={'translate(400,600)'} on container g, x + y on inner elemtns
-2. x and y on all elemtnts
-
-
-- zoom - https://stackoverflow.com/questions/52576376/how-to-zoom-in-on-a-complex-svg-structure
-
-*/

@@ -13,19 +13,23 @@ class Text extends React.Component {
     }
 
     componentDidMount() {
-        this.getLines();
+        this.getLines(this.props);
     }
 
-    getLines = () => {
-        const { text, x, y, width, height, fontSize, lineHeight } = this.props;
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.getLines(nextProps);
+    }
+
+    getLines = (props) => {
+        const { text, x, y, width, height, fontSize, lineHeight } = props;
 
         if (!document || !document.createElement) {
             return [];
-            
         }
+
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
-        const words = text.split(/s+/);
+        const words = text.split(/\s+/);
         const lines = [];
         let nextY = y;
         let line = '';
@@ -34,14 +38,14 @@ class Text extends React.Component {
 
         for (let i = 0; i < words.length; i++) {
             const word = words[i];
-            const withWord = `${line}${word}`;
+            const withWord = `${line}${word} `;
             const tooLong = context.measureText(withWord).width > width;
-            const tooHigh = nextY - y >= height;
-
+            const tooHigh = nextY - y >= height - (lineHeight * fontSize);
+            
             if (tooLong && tooHigh) {
                 line = `${line} ...`;
-
-                if (tcontext.measureText(line).width > width) {
+                
+                if (context.measureText(line).width > width) {
                     line = line.substring(0, line.length - 5).split(' ');
                     line[line.length - 1] = '...';
                     line = line.join(' ');
@@ -51,7 +55,7 @@ class Text extends React.Component {
             }
 
             if (tooLong) {
-                lines.push({ x, y: nextY, text });
+                lines.push({ x, y: nextY, text: line });
                 line = `${word} `;
                 nextY += (lineHeight * fontSize);
             } else {
@@ -59,8 +63,8 @@ class Text extends React.Component {
             }
         }
 
-        lines.push({ x, y: nextY, text });
-
+        lines.push({ x, y: nextY, text: line });
+        
         this.setState({ lines });
     }
 
@@ -82,6 +86,7 @@ class Text extends React.Component {
                         y={line.y}
                         key={`line-${index}`}
                         alignmentBaseline={'hanging'}
+                        // textAnchor={'middle'}
                     >
                         {line.text}
                     </tspan>
@@ -92,3 +97,7 @@ class Text extends React.Component {
 }
 
 export default Text;
+
+// TODO: 
+// - vertical center
+// - horiztonal center

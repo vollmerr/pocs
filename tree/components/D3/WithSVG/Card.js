@@ -1,5 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
+import { Group } from '@vx/group';
 
 import Text from './Text';
 
@@ -44,34 +45,45 @@ class Card extends React.Component {
         const { card } = this.props;
         
         return (
-            <svg 
-                data-testid={'card'}
-                ref={this.cardRef} 
-                id={card.id} 
-                x={card.x} 
-                y={card.y}
+            <g
+                ref={this.cardRef}            
                 width={width} 
                 height={height}
+                x={card.x} 
+                y={card.y}
             >
                 <rect
+                    x={card.x}
+                    y={card.y}
                     width={width} 
                     height={height}
                     fill={'black'} 
                     stroke={'white'} 
-                    strokeWidth={15}
+                    strokeWidth={padding / 2}
                 />
 
                 <Text 
                     text={card.title}
-                    x={padding}
-                    y={padding}
-                    fontSize={30}
-                    lineHeight={1.5}
-                    width={width - 2 * padding}
-                    height={400}
+                    x={card.x + padding}
+                    y={card.y + (2 * padding)}
+                    fontSize={titleHeight / 1.2 / 2}
+                    lineHeight={1.2}
+                    width={width - (2 * padding)}
+                    height={titleHeight - padding}
                     fill={'white'}
                 />
-            </svg>
+
+                <Text 
+                    text={card.description}
+                    x={card.x + padding}
+                    y={card.y + padding + titleHeight + (2 * padding)}
+                    fontSize={descHeight / lineHeight / 4}
+                    lineHeight={lineHeight}
+                    width={width - (2 * padding)}
+                    height={descHeight - (2 * padding)}
+                    fill={'white'}
+                />
+            </g>
         );
     }
 }
