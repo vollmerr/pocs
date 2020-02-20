@@ -8,6 +8,8 @@ const links = [
   { href: '/d3-svg', label: 'D3 Svg' },
   { href: '/fabric', label: 'fabric' },
   { href: '/konva', label: 'konva' },
+  { href: '/vx', label: 'vx' },
+  { href: '/vx-d3', label: 'vx-d3' },
 ].map(link => ({
   ...link,
   key: `nav-link-${link.href}-${link.label}`,

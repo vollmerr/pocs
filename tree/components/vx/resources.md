@@ -1,0 +1,1 @@
+https://vx-demo.now.sh/linkTypes

@@ -5,8 +5,8 @@ import useImage from 'use-image';
 const Card = ({ card, onClick, onDragMove, onDragEnd }) => {
     const { title, description, x, y, imageSrc } = card;
     const unit = 30;
-    const width = unit * 8; // 350
-    const height = unit * 12; // 500
+    const width = unit * 8;
+    const height = unit * 12;
     const padding = unit / 2;
     const titleHeight = unit * 3;
     const descHeight = unit * 3;
@@ -24,6 +24,7 @@ const Card = ({ card, onClick, onDragMove, onDragEnd }) => {
             onDragEnd={onDragEnd}
             x={x}
             y={y}
+            name={'card'}
         >
             <Rect
                 width={width}
@@ -31,6 +32,7 @@ const Card = ({ card, onClick, onDragMove, onDragEnd }) => {
                 fill={'black'}
                 stroke={'white'}
                 strokeWidth={padding / 2}
+                name={'card-rect'}
             />
 
             <Text

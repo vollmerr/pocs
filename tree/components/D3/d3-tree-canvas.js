@@ -18,7 +18,6 @@ class D3TreeCanvas extends React.Component {
         this.imageRef = createRef();
     }
 
-
     componentDidMount() {
         this.updateCanvas();
     }

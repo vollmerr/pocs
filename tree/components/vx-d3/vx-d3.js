@@ -2,11 +2,11 @@ import React from 'react';
 import * as d3 from 'd3';
 
 import data from './data';
-import Defs from './Defs';
+// import Defs from './Defs';
 import Card from './Card';
-import Link from './Link';
+// import Link from './Link';
 
-class D3TreeSvg extends React.Component {
+class VXD3 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,20 +38,20 @@ class D3TreeSvg extends React.Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    renderLinks = (id) => {
-        const { byId } = this.state;
-        const card = byId[id];
+    // renderLinks = (id) => {
+    //     const { byId } = this.state;
+    //     const card = byId[id];
 
-        if (!card.children || !card.children.length) {
-            return null;
-        }
+    //     if (!card.children || !card.children.length) {
+    //         return null;
+    //     }
 
-        return (
-            card.children.map((childId) => (
-                <Link key={`link-${card.id}-${childId}`} from={card} to={byId[childId]} />
-            ))
-        );
-    }
+    //     return (
+    //         card.children.map((childId) => (
+    //             <Link key={`link-${card.id}-${childId}`} from={card} to={byId[childId]} />
+    //         ))
+    //     );
+    // }
 
     renderCard = (id) => {
         const { byId } = this.state;
@@ -67,27 +67,16 @@ class D3TreeSvg extends React.Component {
     };
 
     render() {
-        const { width, height, allIds } = this.state;
+        const { width, height, allIds, context } = this.state;
         
         return (
             <svg height={height} width={width} viewBox={'0 0 3000 3000'}>
-                <Defs />
-                {allIds.map(this.renderLinks)}
+                {/* <Defs /> */}
+                {/* {allIds.map(this.renderLinks)} */}
                 {allIds.map(this.renderCard)}
             </svg>
         );
     }
 }
 
-export default D3TreeSvg;
-
-
-/*
-
-1. transform={'translate(400,600)'} on container g, x + y on inner elemtns
-2. x and y on all elemtnts
-
-
-- zoom - https://stackoverflow.com/questions/52576376/how-to-zoom-in-on-a-complex-svg-structure
-
-*/
+export default VXD3;

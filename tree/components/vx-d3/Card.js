@@ -1,7 +1,7 @@
 import React from 'react';
+import { Text } from '@vx/text';
+import { Group } from '@vx/group';
 import * as d3 from 'd3';
-
-import Text from './Text';
 
 const unit = 30;
 const width = unit * 8;
@@ -43,35 +43,43 @@ class Card extends React.Component {
     render() {
         const { card } = this.props;
         
+        //vx.Group?
         return (
-            <svg 
-                data-testid={'card'}
-                ref={this.cardRef} 
-                id={card.id} 
-                x={card.x} 
-                y={card.y}
-                width={width} 
-                height={height}
+            <Group
+                left={card.x}
+                top={card.y}
+
+                // data-testid={'card'}
+                // ref={this.cardRef} 
+                // id={card.id} 
+                // x={card.x} 
+                // y={card.y}
+                // width={width} 
+                // height={height}
             >
                 <rect
                     width={width} 
                     height={height}
                     fill={'black'} 
                     stroke={'white'} 
-                    strokeWidth={15}
+                    strokeWidth={10}
                 />
 
                 <Text 
-                    text={card.title}
                     x={padding}
                     y={padding}
-                    fontSize={30}
-                    lineHeight={1.5}
+                    style={{
+                        fontSize: 30,
+                        fontWeight: 'bold'
+                    }}
+                    lineHeight={'1.5em'}
                     width={width - 2 * padding}
-                    height={400}
                     fill={'white'}
-                />
-            </svg>
+                    verticalAnchor={'start'}
+                >
+                    {card.title}
+                </Text>
+            </Group>
         );
     }
 }

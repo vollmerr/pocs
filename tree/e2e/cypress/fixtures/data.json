@@ -1,0 +1,92 @@
+{
+    "byId": {
+      "id-0": {
+        "id": "id-0",
+        "title": "Sit amet mauris commodo quis",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        "imageSrc": "/placeholder.png",
+        "x": 780,
+        "y": 450,
+        "children": ["id-1", "id-2", "id-4"]
+      },
+      "id-1": {
+        "id": "id-1",
+        "group": "group-1",
+        "title": "Sem fringilla",
+        "description": "Orci ac auctor augue mauris augue neque gravida in. Non nisi est sit amet facilisis. Purus non enim praesent elementum facilisis",
+        "imageSrc": "/placeholder.png",
+        "x": 960,
+        "y": 900,
+        "parent": "id-0",
+        "children": ["id-5"]
+      },
+      "id-2": {
+        "id": "id-2",
+        "title": "Vulputate dig suspen in est",
+        "description": "Pharetra magna ac placerat vestibulum lectus mauris ultrices eros in. Pretium quam vulputate dignissim suspendisse in est ante in nibh",
+        "imageSrc": "/placeholder.png",
+        "x": 600,
+        "y": 900,
+        "parent": "id-0",
+        "children": ["id-3", "id-7"]
+      },
+      "id-3": {
+        "id": "id-3",
+        "title": "Aliquam etiam erat velit",
+        "description": "Diam sollicitudin tempor id eu nisl",
+        "imageSrc": "/placeholder.png",
+        "x": 240,
+        "y": 900,
+        "parent": "id-2"
+      },
+      "id-4": {
+        "id": "id-4",
+        "title": "Est lorem ipsum dolor",
+        "description": "Maecenas accumsan lacus vel facilisis volutpat. Aliquet lectus proin nibh nisl condimentum id venenatis a",
+        "imageSrc": "/placeholder.png",
+        "x": 600,
+        "y": 0,
+        "parent": "id-0"
+      },
+      "id-5": {
+        "id": "id-5",
+        "title": "Aliquet lectus proin",
+        "description": "Maecenas accumsan lacus vel facilisis volutpat. Aliquet lectus proin nibh nisl condimentum id venenatis a",
+        "imageSrc": "/placeholder.png",
+        "x": 1140,
+        "y": 450,
+        "parent": "id-1",
+        "children": ["id-6"]
+      },
+      "id-6": {
+        "id": "id-6",
+        "title": "Suspendisse in est ante in",
+        "description": "Maecenas accumsan lacus vel facilisis volutpat. Aliquet lectus proin nibh nisl condimentum id venenatis a",
+        "imageSrc": "/placeholder.png",
+        "x": 1320,
+        "y": 900,
+        "parent": "id-5"
+      },
+      "id-7": {
+        "id": "id-7",
+        "title": "Lacus vel",
+        "description": "In est ante in nibh",
+        "imageSrc": "/placeholder.png",
+        "x": 600,
+        "y": 1380,
+        "parent": "id-2",
+        "children": ["id-8"]
+      },
+      "id-8": {
+        "id": "id-8",
+        "title": "Test Right",
+        "description": "In est ante in nibh",
+        "imageSrc": "/placeholder.png",
+        "x": 960,
+        "y": 1380,
+        "parent": "id-7"
+      }
+    },
+    "allIds": ["id-0", "id-1", "id-2", "id-3", "id-4", "id-5", "id-6", "id-7", "id-8"],
+    "scale": 1
+  }

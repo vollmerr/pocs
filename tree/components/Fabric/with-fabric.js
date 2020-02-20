@@ -1,7 +1,7 @@
 import React, { createRef } from 'react';
 import { fabric } from 'fabric';
 
-import data from './data';
+import data from '../D3/data';
 
 class WithFabric extends React.Component {
     constructor(props) {

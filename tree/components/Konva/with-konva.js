@@ -10,15 +10,19 @@ import Grid from './Grid';
 // stage preview (top right mini nav for quick clcik go to) https://konvajs.org/docs/sandbox/Stage_Preview.html
 // zoom - https://konvajs.org/docs/sandbox/Responsive_Canvas.html??
 // dnd styling - https://konvajs.org/docs/sandbox/Elastic_Stars.html / https://konvajs.org/docs/react/Events.html
-// prevent collisions - https://konvajs.org/docs/sandbox/Collision_Detection.html
+    // prevent collisions - https://konvajs.org/docs/sandbox/Collision_Detection.html
 // text editing / add input - https://konvajs.org/docs/sandbox/Editable_Text.html
-// tree view..... https://konvajs.org/docs/sandbox/Connected_Objects.html
+        // tree view..... https://konvajs.org/docs/sandbox/Connected_Objects.html
 // undo/redo https://konvajs.org/docs/react/Undo-Redo.html
 // save - loads from server start position, auto generated when adding new
 // grid snap / restirct drop locations
 // unit tests
 // e2e tests (need server feeding data....)
 // server...
+
+
+// TODO: common location for sizes..
+const gridUnit = 60;
 
 class WithKonva extends React.Component {
     constructor(props) {
@@ -30,14 +34,17 @@ class WithKonva extends React.Component {
             allIds: data.allIds,
             scale: data.scale || 1,
             displayGrid: false,
+            snapToGrid: true,
         };
 
         this.stageRef = React.createRef();
-        this.layerRef = React.createRef();
+        this.linkLayerRef = React.createRef();
+        this.cardLayerRef = React.createRef();
     }
 
     componentDidMount() {
-        this.setState({ width: window.innerWidth, height: window.innerHeight - 100 });
+        this.updateViewport();
+        window.addEventListener('resize', this.updateViewport);
     }
 
     onClickCard = (event) => {
@@ -53,6 +60,68 @@ class WithKonva extends React.Component {
     }
 
     onDragCard = (event) => {
+        this.updatePoints(event);
+        this.detectCollisions(event);
+    }
+
+    onDragCardEnd = (event) => {
+        this.snapToGrid(event);
+        this.updatePoints(event);
+    }
+
+    preventDefault = (event) => {
+        event.evt.preventDefault();
+    }
+
+    toggleSnapToGrid = () => {
+        this.setState((state) => ({ snapToGrid: !state.snapToGrid }));
+    }
+
+    snapToGrid = (event) => {
+        const { snapToGrid } = this.state;
+
+        if (!snapToGrid) {
+            return;
+        }
+
+        const { target } = event;
+        const snappedX = Math.round(target.x() / gridUnit) * gridUnit;
+        const snappedY = Math.round(target.y() / gridUnit) * gridUnit;
+
+        target.x(snappedX);
+        target.y(snappedY);
+    }
+
+    detectCollisions = (event) => {
+        const { target } = event;
+
+        this.cardLayerRef.current.children.each((card) => {
+            if (card === target) {
+                return;
+            }
+
+            if (this.hasInterection(card.getClientRect(), target.getClientRect())) {
+                card.findOne('.card-rect').stroke('red');
+            } else {
+                card.findOne('.card-rect').stroke('white');
+            }
+        });
+    }
+
+    hasInterection = (r1, r2) => {
+        return !(
+            r2.x > r1.x + r1.width ||
+            r2.x + r2.width < r1.x ||
+            r2.y > r1.y + r1.height ||
+            r2.y + r2.height < r1.y
+        );
+    }
+
+    updateViewport = () => {       
+        this.setState({ width: window.innerWidth, height: window.innerHeight - 100 });
+    }
+
+    updatePoints = (event) => {
         const { byId } = this.state;
         const { target } = event;
         const id = target.getAttr('id');
@@ -81,18 +150,10 @@ class WithKonva extends React.Component {
         });
     }
 
-    onDragCardEnd = () => {
-        // snap to gid, (update links?)
-    }
-
-    preventDefault = (event) => {
-        event.evt.preventDefault();
-    }
-
     udpateLinkPoints = ({ fromId, toId }) => {
-        const fromRef = this.layerRef.current.findOne(`#${fromId}`);
-        const toRef = this.layerRef.current.findOne(`#${toId}`);
-        const linkRef = this.layerRef.current.findOne(`#link-${fromId}-${toId}`);
+        const fromRef = this.cardLayerRef.current.findOne(`#${fromId}`);
+        const toRef = this.cardLayerRef.current.findOne(`#${toId}`);
+        const linkRef = this.linkLayerRef.current.findOne(`#link-${fromId}-${toId}`);
 
         const points = getLinkPoints({
             from: { x: fromRef.x(), y: fromRef.y() },
@@ -149,27 +210,34 @@ class WithKonva extends React.Component {
     };
 
     render() {
-        const { width, height, allIds, scale, displayGrid } = this.state;
+        const { width, height, allIds, scale, displayGrid, snapToGrid } = this.state;
 
         return (
             <>
-                <button onClick={() => this.updateScale(0.1)}>+</button>
-                <button onClick={() => this.updateScale(-0.1)}>-</button>
-                <button onClick={this.resetScale}>reset</button>
+                <div style={{ color: 'white', display: 'flex', width: '200px', justifyContent: 'space-between' }}>
+                    <div>zoom</div>
+                    <button onClick={() => this.updateScale(0.1)}>+</button>
+                    <button onClick={() => this.updateScale(-0.1)}>-</button>
+                    <button onClick={this.resetScale}>reset</button>
+                </div>
 
-                <button onClick={this.toggleGrid}>toggle grid</button>
+                <div style={{ color: 'white', display: 'flex', width: '400px', justifyContent: 'space-between' }}> 
+                    <div>snap to grid</div>
+                    <button onClick={this.toggleGrid}>toggle grid</button>
+                    <button onClick={this.toggleSnapToGrid}>toggle snap to grid</button>
+                    <div>{snapToGrid ? 'snapping' : 'free mode'}</div>
+                </div>
 
                 <Stage scaleX={scale} scaleY={scale} width={width} height={height} onContextMenu={this.preventDefault} draggable>
-                    {/* <Layer>
-                        {allIds.map(this.renderCard)}
-                    </Layer> */}
+                    {displayGrid && <Layer><Grid /></Layer>}
 
-                    <Layer ref={this.layerRef}>
+                    <Layer ref={this.linkLayerRef}>
                         {allIds.map(this.renderLinks)}
-                        {allIds.map(this.renderCard)}
                     </Layer>
 
-                    {displayGrid && <Layer><Grid /></Layer>}
+                    <Layer ref={this.cardLayerRef}>
+                        {allIds.map(this.renderCard)}
+                    </Layer>
                 </Stage>
             </>
         );

@@ -5,8 +5,8 @@ const multi = {
       title: 'Sit amet mauris commodo quis',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
       imageSrc: '/placeholder.png',
-      x: 780,
-      y: 480,
+      x: 30,
+      y: 30,
       children: ['id-1', 'id-2', 'id-4'],
     },
     'id-1': {
@@ -75,9 +75,19 @@ const multi = {
       x: 600,
       y: 1380,
       parent: 'id-2',
+      children: ['id-8'],
+    },
+    'id-8': {
+      id: 'id-8',
+      title: 'Test Right',
+      description: 'In est ante in nibh',
+      imageSrc: '/placeholder.png',
+      x: 960,
+      y: 1380,
+      parent: 'id-7',
     },
   },
-  allIds: ['id-0', 'id-1', 'id-2', 'id-3', 'id-4', 'id-5', 'id-6', 'id-7'],
+  allIds: ['id-0', 'id-1', 'id-2', 'id-3', 'id-4', 'id-5', 'id-6', 'id-7', 'id-8'],
   scale: 1,
 }
 
@@ -104,7 +114,7 @@ const parentChild = {
     },
   },
   allIds: ['id-0', 'id-1'],
-  scale: 1,
+  scale: 0.4,
 }
 
 export default multi;
