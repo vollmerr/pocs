@@ -10,7 +10,6 @@
   "dependencies": {
     "@vx/drag": "0.0.194",
     "@vx/gradient": "0.0.194",
-    "@vx/group": "0.0.194",
     "@vx/hierarchy": "0.0.194",
     "@vx/scale": "0.0.194",
     "@vx/shape": "0.0.194",

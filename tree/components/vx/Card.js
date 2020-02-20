@@ -1,7 +1,4 @@
 import React from 'react';
-import Text from '@vx/text';
-import { Group } from '@vx/Group';
-import { Drag, raise } from '@vx/drag';
 
 class Card extends React.Component {
     render() {
