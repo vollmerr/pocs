@@ -15,7 +15,7 @@ import Grid from './Grid';
         // tree view..... https://konvajs.org/docs/sandbox/Connected_Objects.html
 // undo/redo https://konvajs.org/docs/react/Undo-Redo.html
 // save - loads from server start position, auto generated when adding new
-// grid snap / restirct drop locations
+    // grid snap / restirct drop locations
 // unit tests
 // e2e tests (need server feeding data....)
 // server...
